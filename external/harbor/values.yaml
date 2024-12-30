@@ -25,10 +25,10 @@ expose:
       # The name of secret which contains keys named:
       # "tls.crt" - the certificate
       # "tls.key" - the private key
-      secretName: ""
+      secretName: "harbor-tls-cert-secret"
   ingress:
     hosts:
-      core: core.harbor.domain
+      core: harbor.hanxux.local
     # set to the type of ingress controller if it has specific requirements.
     # leave as `default` for most ingress controllers.
     # set to `gce` if using the GCE ingress controller
@@ -38,7 +38,7 @@ expose:
     controller: default
     ## Allow .Capabilities.KubeVersion.Version to be overridden while creating ingress
     kubeVersionOverride: ""
-    className: ""
+    className: "nginx-default"
     annotations:
       # note different ingress controllers may require a different ssl-redirect annotation
       # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
@@ -46,6 +46,8 @@ expose:
       ingress.kubernetes.io/proxy-body-size: "0"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/auth-url: "https://oauth2proxy.hanxux.local/oauth2/auth"
+      nginx.ingress.kubernetes.io/auth-signin: "https://oauth2proxy.hanxux.local/oauth2/start?rd=https%3A%2F%2Fharbor.hanxux.local"
     # ingress-specific labels
     labels: {}
   clusterIP:
@@ -109,7 +111,7 @@ expose:
 # the IP address of k8s node
 #
 # If Harbor is deployed behind the proxy, set it as the URL of proxy
-externalURL: http://172.16.183.100:32002
+externalURL: ""
 
 # The persistence is enabled by default and a default StorageClass
 # is needed in the k8s cluster to provision volumes dynamically.
@@ -133,10 +135,10 @@ persistence:
       # Specify the "storageClass" used to provision the volume. Or the default
       # StorageClass will be used (the default).
       # Set it to "-" to disable dynamic provisioning
-      storageClass: ""
+      storageClass: "sc-nfs"
       subPath: ""
       accessMode: ReadWriteOnce
-      size: 5Gi
+      size: 1.5Gi
       annotations: {}
     jobservice:
       jobLog:
@@ -169,7 +171,7 @@ persistence:
       storageClass: ""
       subPath: ""
       accessMode: ReadWriteOnce
-      size: 5Gi
+      size: 1Gi
       annotations: {}
   # Define which storage backend is used for registry to store
   # images and charts. Refer to
@@ -406,7 +408,7 @@ metrics:
   ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/getting-started.md
   ##
   serviceMonitor:
-    enabled: false
+    enabled: true
     additionalLabels: {}
     # Scrape interval. If not set, the Prometheus default scrape interval is used.
     interval: ""
@@ -789,7 +791,7 @@ registry:
 
 trivy:
   # enabled the flag to enable Trivy scanner
-  enabled: true
+  enabled: false
   image:
     # repository the repository for Trivy adapter image
     repository: goharbor/trivy-adapter-photon
@@ -883,7 +885,7 @@ trivy:
 database:
   # if external database is used, set "type" to "external"
   # and fill the connection information in "external" section
-  type: external
+  type: internal
   internal:
     image:
       repository: goharbor/harbor-db
@@ -963,7 +965,7 @@ database:
 redis:
   # if external Redis is used, set "type" to "external"
   # and fill the connection information in "external" section
-  type: external
+  type: internal
   internal:
     image:
       repository: goharbor/redis-photon
