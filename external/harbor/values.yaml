@@ -46,8 +46,8 @@ expose:
       ingress.kubernetes.io/proxy-body-size: "0"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      nginx.ingress.kubernetes.io/auth-url: "https://oauth2proxy.hanxux.local/oauth2/auth"
-      nginx.ingress.kubernetes.io/auth-signin: "https://oauth2proxy.hanxux.local/oauth2/start?rd=https%3A%2F%2Fharbor.hanxux.local"
+      # nginx.ingress.kubernetes.io/auth-url: "https://oauth2proxy.hanxux.local/oauth2/auth"
+      # nginx.ingress.kubernetes.io/auth-signin: "https://oauth2proxy.hanxux.local/oauth2/start?rd=https%3A%2F%2Fharbor.hanxux.local"
     # ingress-specific labels
     labels: {}
   clusterIP:
@@ -111,7 +111,7 @@ expose:
 # the IP address of k8s node
 #
 # If Harbor is deployed behind the proxy, set it as the URL of proxy
-externalURL: ""
+externalURL: "https://harbor.hanxux.local"
 
 # The persistence is enabled by default and a default StorageClass
 # is needed in the k8s cluster to provision volumes dynamically.
@@ -137,7 +137,7 @@ persistence:
       # Set it to "-" to disable dynamic provisioning
       storageClass: "sc-nfs"
       subPath: ""
-      accessMode: ReadWriteOnce
+      accessMode: ReadWriteMany
       size: 1.5Gi
       annotations: {}
     jobservice:
@@ -145,7 +145,7 @@ persistence:
         existingClaim: ""
         storageClass: ""
         subPath: ""
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 1Gi
         annotations: {}
     # If external database is used, the following settings for database will
@@ -154,7 +154,7 @@ persistence:
       existingClaim: ""
       storageClass: ""
       subPath: ""
-      accessMode: ReadWriteOnce
+      accessMode: ReadWriteMany
       size: 1Gi
       annotations: {}
     # If external Redis is used, the following settings for Redis will
@@ -163,14 +163,14 @@ persistence:
       existingClaim: ""
       storageClass: ""
       subPath: ""
-      accessMode: ReadWriteOnce
+      accessMode: ReadWriteMany
       size: 1Gi
       annotations: {}
     trivy:
       existingClaim: ""
       storageClass: ""
       subPath: ""
-      accessMode: ReadWriteOnce
+      accessMode: ReadWriteMany
       size: 1Gi
       annotations: {}
   # Define which storage backend is used for registry to store
