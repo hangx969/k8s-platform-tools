@@ -31,3 +31,5 @@ dashboards:
     dashboard_name: capsule-controller
   - file_path: "dashboards/pg2-logs.json"
     dashboard_name: pg2-logs
+  - file_path: "dashboards/c3-monitoring-copy.json"
+    dashboard_name: c3-monitoring

@@ -15,7 +15,7 @@
         }
       ]
     },
-    "description": "Logs from map delivery applications",
+    "description": "Logs from loki",
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
@@ -27,7 +27,7 @@
           "type": "loki",
           "uid": "P8E80F9AEF21F6940"
         },
-        "description": "Logs from the compile job which compiles and ingests the map.",
+        "description": "Logs from the loki.",
         "gridPos": {
           "h": 9,
           "w": 24,
@@ -52,13 +52,13 @@
               "uid": "P8E80F9AEF21F6940"
             },
             "editorMode": "builder",
-            "expr": "{namespace=\"mapapps\", container=\"compile\"} |= ``",
+            "expr": "{namespace=\"testapps\", container=\"compile\"} |= ``",
             "key": "Q-6ec4c134-dece-46fe-b661-0561e9a91d59-0",
             "queryType": "range",
             "refId": "A"
           }
         ],
-        "title": "madmap-compiler logs",
+        "title": "logs",
         "type": "logs"
       },
       {
@@ -90,7 +90,7 @@
               "uid": "P8E80F9AEF21F6940"
             },
             "editorMode": "builder",
-            "expr": "{namespace=\"mapapps\", container=\"tile-delivery\"} |= ``",
+            "expr": "{namespace=\"testapps\", container=\"test-delivery\"} |= ``",
             "queryType": "range",
             "refId": "A"
           }
@@ -127,12 +127,12 @@
               "uid": "P8E80F9AEF21F6940"
             },
             "editorMode": "builder",
-            "expr": "{namespace=\"mapapps\", container=\"transport-agent-zebrafleet\"} |= ``",
+            "expr": "{namespace=\"testapps\", container=\"transport-agent-carfleet\"} |= ``",
             "queryType": "range",
             "refId": "A"
           }
         ],
-        "title": "transport-agent-zebrafleet logs",
+        "title": "transport-agent-carfleet logs",
         "type": "logs"
       },
       {
@@ -165,12 +165,12 @@
               "uid": "P8E80F9AEF21F6940"
             },
             "editorMode": "builder",
-            "expr": "{namespace=\"zebrafleetmap\", container=\"zebra-tile-consumer\"} |= ``",
+            "expr": "{namespace=\"carfleettest\", container=\"car-tile-consumer\"} |= ``",
             "queryType": "range",
             "refId": "A"
           }
         ],
-        "title": "zebra-tile-consumer",
+        "title": "car-tile-consumer",
         "type": "logs"
       },
       {
@@ -178,7 +178,7 @@
           "type": "loki",
           "uid": "P8E80F9AEF21F6940"
         },
-        "description": "Last 15 minutes of source-map-download applicaiton logs",
+        "description": "Last 15 minutes of source-test-download applicaiton logs",
         "gridPos": {
           "h": 8,
           "w": 24,
@@ -203,12 +203,12 @@
               "uid": "P8E80F9AEF21F6940"
             },
             "editorMode": "builder",
-            "expr": "{namespace=\"mapapps\", container=\"source-map-download\"} |= ``",
+            "expr": "{namespace=\"testapps\", container=\"source-test-download\"} |= ``",
             "queryType": "range",
             "refId": "A"
           }
         ],
-        "title": "source-map-download logs",
+        "title": "source-test-download logs",
         "type": "logs"
       },
       {
@@ -241,7 +241,7 @@
               "uid": "P8E80F9AEF21F6940"
             },
             "editorMode": "builder",
-            "expr": "{namespace=\"mapapps\", container=\"cloud-event-operator\"} |= ``",
+            "expr": "{namespace=\"testapps\", container=\"cloud-event-operator\"} |= ``",
             "queryType": "range",
             "refId": "A"
           }
@@ -254,8 +254,8 @@
     "schemaVersion": 38,
     "style": "dark",
     "tags": [
-      "mapapps",
-      "map-delivery"
+      "testapps",
+      "test-delivery"
     ],
     "templating": {
       "list": []
@@ -266,7 +266,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Madmaps: Map Delivery Logs",
+    "title": "Logs from Loki",
     "uid": "b0f6b765-8b5c-4d85-a315-651f19f4ab49",
     "version": 2,
     "weekStart": ""
